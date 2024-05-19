@@ -21,8 +21,8 @@ public class HumanPlayer extends Player {
                     + Arrays.toString(getValidMovesLookup().keySet().toArray()) + "): ");
 
             String userMove = scanner.nextLine();
-
-            if(getValidMovesLookup().containsKey(userMove.toUpperCase())) {
+            userMove = userMove.toUpperCase();
+            if(getValidMovesLookup().containsKey(userMove)) {
                 return getValidMovesLookup().get(userMove);
             }
 
