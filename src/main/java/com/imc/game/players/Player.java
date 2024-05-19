@@ -18,6 +18,12 @@ public abstract class Player {
     private final Map<String, Move> validMovesLookup;
 
     public Player(String name, Move []validMoves) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be null or empty");
+        }
+        if (validMoves == null || validMoves.length == 0) {
+            throw new IllegalArgumentException("Valid moves cannot be null or empty");
+        }
         this.name = name;
         this.winCount = 0;
         this.validMovesLookup = new HashMap<>();

@@ -6,8 +6,7 @@ import com.imc.game.moves.RockPaperScissorsMove;
 import com.imc.game.players.ComputerPlayer;
 import com.imc.game.players.HumanPlayer;
 import com.imc.game.players.Player;
-
-import java.util.Scanner;
+import com.imc.game.util.ScannerWrapper;
 
 import static com.imc.game.enums.GameMove.*;
 
@@ -15,9 +14,11 @@ public class RockPaperScissorsGame implements Game {
     private Player player1, player2;
     private int numRounds;
     private final GameType gameType;
+    private final ScannerWrapper scanner;
 
 
-    public RockPaperScissorsGame() {
+    public RockPaperScissorsGame(ScannerWrapper scanner) {
+        this.scanner = scanner;
         this.gameType = GameType.ROCK_PAPER_SCISSORS;
     }
 
@@ -28,8 +29,7 @@ public class RockPaperScissorsGame implements Game {
 
     @Override
     public void initializeGame() {
-        Scanner scanner = new Scanner(System.in);
-        getNumberOfRounds(scanner);
+        getNumberOfRounds();
 
         System.out.println("Please enter the the player name!");
         String name = scanner.nextLine();
@@ -88,7 +88,11 @@ public class RockPaperScissorsGame implements Game {
         }
     }
 
-    private int playRound(Move player1Move, Move player2Move) {
+    public int getNumRounds() {
+        return numRounds;
+    }
+
+    public int playRound(Move player1Move, Move player2Move) {
         if(player1Move.getMove().equals(player2Move.getMove())) return 0;
         return switch (player1Move.getMove()) {
             case ROCK -> (player2Move.getMove().equals(SCISSORS) ? 1 : -1);
@@ -105,7 +109,7 @@ public class RockPaperScissorsGame implements Game {
         };
     }
 
-    private void getNumberOfRounds(Scanner scanner) {
+    public void getNumberOfRounds() {
         while (true) {
             System.out.println("Please enter the number of rounds to play:");
             try {
@@ -122,7 +126,7 @@ public class RockPaperScissorsGame implements Game {
     }
 
     private Player createHumanPlayer(String name) {
-        return new HumanPlayer(name, getValidMoves());
+        return new HumanPlayer(name, getValidMoves(), scanner);
     }
 
     private Player createComputerPlayer() {
