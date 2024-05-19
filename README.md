@@ -15,9 +15,12 @@ This project implements a classic Rock-Paper-Scissors game in Java, utilizing de
 ## Running the Game:
 - Compile the Java source files (e.g., using javac).
 - Run the GameRunner class using java GameRunner.
-- set the number of rounds.
-- set the human player name
-- choose one of the valid moves
-- repeat until the game ends i.e all the rounds completes
+- Set the number of rounds.
+- Set the human player name
+- Choose one of the valid moves
+- Repeat until the game ends i.e all the rounds completes
+
+## Running the tests
+- mvn clean verify
   
   
