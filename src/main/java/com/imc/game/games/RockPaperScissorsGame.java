@@ -16,12 +16,6 @@ public class RockPaperScissorsGame implements Game {
     private int numRounds;
     private final GameType gameType;
 
-    private final Move[] validMoves = {
-            new RockPaperScissorsMove(ROCK),
-            new RockPaperScissorsMove(PAPER),
-            new RockPaperScissorsMove(SCISSORS)
-    };
-
     public RockPaperScissorsGame() {
         this.gameType = GameType.ROCK_PAPER_SCISSORS;
     }
@@ -41,8 +35,8 @@ public class RockPaperScissorsGame implements Game {
         System.out.println("Please enter the the player name!");
         String name = scanner.nextLine();
 
-        player1 = new HumanPlayer(name, validMoves);
-        player2 = new ComputerPlayer("Computer");
+        player1 = createHumanPlayer(name);
+        player2 = createComputerPlayer();
     }
 
     @Override
@@ -82,5 +76,21 @@ public class RockPaperScissorsGame implements Game {
             case PAPER -> (player2Move.getMove().equals(ROCK) ? 1 : -1);
             case SCISSORS -> (player2Move.getMove().equals(PAPER) ? 1 : -1);
         };
+    }
+
+    private Move[] getValidMoves() {
+        return new Move[] {
+                new RockPaperScissorsMove(ROCK),
+                new RockPaperScissorsMove(PAPER),
+                new RockPaperScissorsMove(SCISSORS)
+        };
+    }
+
+    private Player createHumanPlayer(String name) {
+        return new HumanPlayer(name, getValidMoves());
+    }
+
+    private Player createComputerPlayer() {
+        return new ComputerPlayer("Computer", getValidMoves());
     }
 }

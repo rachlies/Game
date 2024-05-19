@@ -2,7 +2,9 @@ package com.imc.game.players;
 
 import com.imc.game.moves.Move;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -13,7 +15,7 @@ public abstract class Player {
 
     private final String name;
     private int winCount;
-    private HashMap<String, Move> validMovesLookup = null;
+    private final Map<String, Move> validMovesLookup;
 
     public Player(String name, Move []validMoves) {
         this.name = name;
@@ -22,11 +24,6 @@ public abstract class Player {
         for(Move move : validMoves) {
             validMovesLookup.put(move.getMove().name(), move);
         }
-    }
-
-    public Player(String name) {
-        this.name = name;
-        this.winCount = 0;
     }
 
     public String getName() {
@@ -41,8 +38,8 @@ public abstract class Player {
         return winCount;
     }
 
-    public HashMap<String, Move> getValidMovesLookup() {
-        return this.validMovesLookup;
+    public Map<String, Move> getValidMovesLookup() {
+        return Collections.unmodifiableMap(validMovesLookup);
     }
 
     /**
